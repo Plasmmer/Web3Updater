@@ -1,8 +1,6 @@
 #!/bin/bash
 
 echo "Welcome to Web3Updater!"
-echo ""
-echo "Version: v1 / Patch: $(jq -r '.patch_at' patch_at.json)"
 
 if [ ! -f patch_at.json ]; then
     echo ""
@@ -24,7 +22,10 @@ echo "Done!"
 fi
 
 echo ""
+echo "Version: v1 / Patch: $(jq -r '.patch_at' patch_at.json)"
+echo ""
 echo "Checking for new updates..."
+#git clone https://ipfs.io$(ethereal ens contenthash get --domain=plasmmer.eth)
 
 if [ "$(jq -r '.new_patch_at' new_patch_at.json)" -gt "$(jq -r '.patch_at' patch_at.json)" ]; then
     echo "Updating Web3Updater..."
@@ -32,8 +33,6 @@ if [ "$(jq -r '.new_patch_at' new_patch_at.json)" -gt "$(jq -r '.patch_at' patch
 else
     echo "UP-TO-DATE like a breeze! No new updates to install, yet."
 fi
-
-git clone https://ipfs.io$(ethereal ens contenthash get --domain=plasmmer.eth)
 
 #- use .eth.link to update
 #- use ethereal to fetch ENS for updated .git CID
