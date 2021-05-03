@@ -40,4 +40,6 @@ fi
 
 #- install IPFS if not detected (mark it as a template feature for Floflis installer)
 #- install ipget if not detected
-#- 
+#- ipfs ls /ipfs/QmYrS7cNYXGGh4n38w5vcgBrinF7X3Yii24PCa2FEWVXuZ/
+#- ipfs get --output=tmp-remote QmYrS7cNYXGGh4n38w5vcgBrinF7X3Yii24PCa2FEWVXuZ
+#- ipfs pin add QmYrS7cNYXGGh4n38w5vcgBrinF7X3Yii24PCa2FEWVXuZ
