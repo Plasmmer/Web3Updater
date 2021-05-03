@@ -26,7 +26,10 @@ echo ""
 echo "Version: v1 / Patch: $(jq -r '.patch_at' patch_at.json)"
 echo ""
 echo "Checking for new updates..."
-#git clone https://ipfs.io$(ethereal ens contenthash get --domain=plasmmer.eth)
+
+git clone https://ipfs.io$(ethereal ens contenthash get --domain=update.updating.eth)
+#git remote add web3updater https://ipfs.io$(ethereal ens contenthash get --domain=update.updating.eth)
+#git pull web3updater
 
 if [ "$(jq -r '.new_patch_at' new_patch_at.json)" -gt "$(jq -r '.patch_at' patch_at.json)" ]; then
     echo "Updating Web3Updater..."
