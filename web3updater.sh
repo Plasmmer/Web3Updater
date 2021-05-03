@@ -27,7 +27,7 @@ echo "Version: v1 / Patch: $(jq -r '.patch_at' patch_at.json)"
 echo ""
 echo "Checking for new updates..."
 
-git clone https://ipfs.io$(ethereal ens contenthash get --domain=update.updating.eth)
+echo "$(ethereal ens contenthash get --domain=update.updating.eth)" #remove "/"
 #git remote add web3updater https://ipfs.io$(ethereal ens contenthash get --domain=update.updating.eth)
 #git pull web3updater
 
@@ -38,4 +38,6 @@ else
     echo "UP-TO-DATE like a breeze! No new updates to install, yet."
 fi
 
-#- primarily use localhost IPFS, then fallback into gateway
+#- install IPFS if not detected (mark it as a template feature for Floflis installer)
+#- install ipget if not detected
+#- 
