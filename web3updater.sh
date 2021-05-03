@@ -1,6 +1,7 @@
 #!/bin/bash
 
 echo "Welcome to Web3Updater!"
+echo "Made in a day where my mom couln't sleep because of an Hare Krishna that lives with my uncle, and the whole day she yelled at us and I became confused. Half day building this piece of art+utility, half day reasoning poorly and thinking to burn all my crypto because money != peace in some cases. But I won't burn my tokens because there are my mom, my uncle and my sister counting on me, and I hope I can change the life of more people, if I even can change the life of my mom and myself/; which is being hard. My brain bugged now to think more so I'll try to focus back on outbursting by building this heresy that no one of these machist transphobe beared professional programmers have thought of. I know Im writing like in 2019 and this is an backstep, but my brain really bugged today, my rare peace of mind from a whole month has been partly broken today. My mom is bipolar, and about Hare I don't want to judge while irritated."
 
 if [ ! -f patch_at.json ]; then
     echo ""
@@ -34,5 +35,4 @@ else
     echo "UP-TO-DATE like a breeze! No new updates to install, yet."
 fi
 
-#- use .eth.link to update
-#- use ethereal to fetch ENS for updated .git CID
+#- primarily use localhost IPFS, then fallback into gateway
