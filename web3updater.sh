@@ -20,6 +20,7 @@ echo "Initializing..."
 "patch_at": 0
 }
 EOF
+#git remote add web3updater tmp-remote
 echo "Done!"
 fi
 
@@ -36,8 +37,7 @@ else
 fi
 
 #- install IPFS if not detected (mark it as a template feature for Floflis installer)
-#- ipfs ls $(ethereal ens contenthash get --domain=update.updating.eth)
-#- ipfs get --output=tmp-remote $(ethereal ens contenthash get --domain=update.updating.eth)
-#- ipfs pin add $(ethereal ens contenthash get --domain=update.updating.eth)
-#git remote add web3updater tmp-remote
+#ipfs ls $(ethereal ens contenthash get --domain=update.updating.eth)
+#ipfs get --output=tmp-remote $(ethereal ens contenthash get --domain=update.updating.eth)
+#ipfs pin add $(ethereal ens contenthash get --domain=update.updating.eth)
 #git pull web3updater && rm -rf tmp-remote
