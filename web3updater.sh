@@ -34,6 +34,8 @@ if [ "$(jq -r '.new_patch_at' new_patch_at.json)" -gt "$(jq -r '.patch_at' updat
     sh ./update.sh
 else
     echo "UP-TO-DATE like a breeze! No new updates to install, yet."
+    #echo "Recently checked at:"
+    #echo "Recently updated at:"
 fi
 
 #- install IPFS if not detected (mark it as a template feature for Floflis installer)
@@ -46,3 +48,4 @@ fi
 #- help and version
 #- EPNS notifications
 #- suggest adding CLI app into UniStore instead of web3updater init (Plugz on UniStore will add web3updater as dependency, as IPFS is a dependency of web3updater)
+#- guide to add/write new updates (both on update.sh and new_patch_at.json)
