@@ -28,9 +28,6 @@ echo "Version: v1 / Patch: $(jq -r '.patch_at' update.json)"
 echo ""
 echo "Checking for new updates..."
 
-#git remote add web3updater https://ipfs.io$(ethereal ens contenthash get --domain=update.updating.eth)
-#git pull web3updater
-
 if [ "$(jq -r '.new_patch_at' new_patch_at.json)" -gt "$(jq -r '.patch_at' update.json)" ]; then
     echo "Updating Web3Updater..."
     sh ./update.sh
@@ -39,7 +36,8 @@ else
 fi
 
 #- install IPFS if not detected (mark it as a template feature for Floflis installer)
-#- install ipget if not detected
 #- ipfs ls $(ethereal ens contenthash get --domain=update.updating.eth)
 #- ipfs get --output=tmp-remote $(ethereal ens contenthash get --domain=update.updating.eth)
 #- ipfs pin add $(ethereal ens contenthash get --domain=update.updating.eth)
+#git remote add web3updater tmp-remote
+#git pull web3updater && rm -rf tmp-remote
