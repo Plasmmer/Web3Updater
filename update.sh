@@ -18,7 +18,7 @@ fi
 #   echo "Installing update 3..."
 #   rm patch_1.txt
 #   rm another_effect.txt
-#   jq '. += ["cid_at": ""]' update.json
+##   jq '. += ["cid_at": ""]' update.json
 #   contents="$(jq '.patch_at = "3"' update.json)" && \
 #echo "${contents}" > update.json
 #fi
