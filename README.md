@@ -6,7 +6,7 @@ It can not only be itself updating itself, but can also be initiated in your pro
 
 Every time you wish to add an new update: edit files such as update.sh and new_patch_at.json adding commands and increasing numbers and... ...more instructions coming.
 
-Web3Updater is developed with focus on:
+Web3Updater is developed with focus on being:
 - Modular
 - Agnostic
 - Portable

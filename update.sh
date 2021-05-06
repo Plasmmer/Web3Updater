@@ -14,11 +14,11 @@ if [ $(jq -r '.patch_at' update.json) = "1" ]; then
 echo "${contents}" > update.json
 fi
 
-#if [ $(jq -r '.patch_at' update.json) = "2" ]; then
-#   echo "Installing update 3..."
-#   rm patch_1.txt
-#   rm another_effect.txt
-##   jq '. += ["cid_at": ""]' update.json
-#   contents="$(jq '.patch_at = "3"' update.json)" && \
-#echo "${contents}" > update.json
-#fi
+if [ $(jq -r '.patch_at' update.json) = "2" ]; then
+   echo "Installing update 3..."
+   rm patch_1.txt
+   rm another_effect.txt
+   cat update.json | jq '. + {"cid_at": ""}' | tee update.json
+   contents="$(jq '.patch_at = "3"' update.json)" && \
+echo "${contents}" > update.json
+fi
