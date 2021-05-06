@@ -22,3 +22,11 @@ if [ $(jq -r '.patch_at' update.json) = "2" ]; then
    contents="$(jq '.patch_at = "3"' update.json)" && \
    echo "${contents}" > update.json
 fi
+
+if [ $(jq -r '.patch_at' update.json) = "3" ]; then
+   echo "Installing update 4..."
+   cat update.json | jq '. + {"recently_checked_at": ""}' | tee update.json
+   cat update.json | jq '. + {"recently_updated_at": ""}' | tee update.json
+   contents="$(jq '.patch_at = "4"' update.json)" && \
+   echo "${contents}" > update.json
+fi

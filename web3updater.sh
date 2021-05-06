@@ -29,18 +29,29 @@ echo "Version: v1 / Patch: $(jq -r '.patch_at' update.json)"
 echo ""
 echo "Checking for new updates..."
 
+if [ $(jq -r '.patch_at' update.json) -ge "4" ]; then
+    recentlycheckedat=$(echo '('`date +"%s.%N"` ' * 1000000)/1' | bc)
+    contents="$(jq '.recently_checked_at = "$recentlycheckedat"' update.json)" && \
+    echo "${contents}" > update.json # have to fix, its literally writing $recentlycheckedat
+fi
 
 if [ "$(jq -r '.new_patch_at' new_patch_at.json)" -gt "$(jq -r '.patch_at' update.json)" ]; then
     echo "Updating Web3Updater..."
+    cidat=$(ethereal ens contenthash get --domain=update.updating.eth)
+    contents="$(jq '.cid_at = "$cidat"' update.json)" && \
+    echo "${contents}" > update.json
     #ipfs ls $(ethereal ens contenthash get --domain=update.updating.eth)
     #ipfs get --output=tmp-remote $(ethereal ens contenthash get --domain=update.updating.eth)
     #ipfs pin add $(ethereal ens contenthash get --domain=update.updating.eth)
     #git pull web3updater && rm -rf tmp-remote
     sh ./update.sh
+    recentlyupdatedat=$(echo '('`date +"%s.%N"` ' * 1000000)/1' | bc)
+    contents="$(jq '.recently_updated_at = "$recentlyupdatedat"' update.json)" && \
+    echo "${contents}" > update.json # have to fix, its literally writing $recentlyupdatedat
 else
     echo "UP-TO-DATE like a breeze! No new updates to install, yet."
-    #echo "Recently checked at: "
-    #echo "Recently updated at: "
+    echo "Recently checked at: $(jq -r '.recently_checked_at' update.json)"
+    echo "Recently updated at: $(jq -r '.recently_updated_at' update.json)"
 fi
 
 #- JSON field: recently checked, recently updated
