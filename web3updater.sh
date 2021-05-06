@@ -20,7 +20,7 @@ echo "Initializing..."
 "patch_at": 0
 }
 EOF
-#git remote add web3updater tmp-remote
+#mkdir web3updater && git remote add web3updater tmp-remote
 echo "Done!"
 fi
 
@@ -29,8 +29,13 @@ echo "Version: v1 / Patch: $(jq -r '.patch_at' update.json)"
 echo ""
 echo "Checking for new updates..."
 
+
 if [ "$(jq -r '.new_patch_at' new_patch_at.json)" -gt "$(jq -r '.patch_at' update.json)" ]; then
     echo "Updating Web3Updater..."
+    #ipfs ls $(ethereal ens contenthash get --domain=update.updating.eth)
+    #ipfs get --output=tmp-remote $(ethereal ens contenthash get --domain=update.updating.eth)
+    #ipfs pin add $(ethereal ens contenthash get --domain=update.updating.eth)
+    #git pull web3updater && rm -rf tmp-remote
     sh ./update.sh
 else
     echo "UP-TO-DATE like a breeze! No new updates to install, yet."
@@ -38,11 +43,8 @@ else
     #echo "Recently updated at: "
 fi
 
-#- install IPFS if not detected (mark it as a template feature for Floflis installer)
-#ipfs ls $(ethereal ens contenthash get --domain=update.updating.eth)
-#ipfs get --output=tmp-remote $(ethereal ens contenthash get --domain=update.updating.eth)
-#ipfs pin add $(ethereal ens contenthash get --domain=update.updating.eth)
-#git pull web3updater && rm -rf tmp-remote
+#- JSON field: recently checked, recently updated
+
 #- install on /libs folder like Floflis, with its /bin exec
 #- command to init on a project (only CLI, for now - adds the full web3updater lib installable globally + its custom new_patch_at.json, update.sh, update.json, etc) - "web3updater init"
 #- help and version
