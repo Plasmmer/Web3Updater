@@ -1,0 +1,22 @@
+{
+	"florecipe-v": "1.0",
+	"name": "web3updater",
+	"ethereal": {
+		"source": {
+			"ipfs": "QmWmxakbb7msHFaD9QmGXBAmLpUHTdZG64BWhQg8dyx8gM",
+			"github": "https://github.com/wealdtech/ethereal.git"
+		},
+		"linux-amd64": {
+			"ipfs": "QmbwABiXz4U5MrmJLisfxaHEG7CyJKEnNECRjXogS7eAFw",
+			"github": "https://github.com/wealdtech/ethereal/releases/download/v2.6.0/ethereal-2.6.0-linux-amd64.tar.gz"
+		},
+		"linux-arm64": {
+			"ipfs": "QmV9agwSZuVXMJNYV1NhU8SY8TRg73z8RgTw4QaYrVxtrr",
+			"github": "https://github.com/wealdtech/ethereal/releases/download/v2.6.0/ethereal-2.6.0-linux-arm64.tar.gz"
+		},
+		"windows-i386": {
+			"ipfs": "",
+			"github": ""
+		}
+	}
+}
