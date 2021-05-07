@@ -30,3 +30,10 @@ if [ $(jq -r '.patch_at' /usr/lib/web3updater/update.json) = "3" ]; then
    contents="$(jq '.patch_at = "4"' /usr/lib/web3updater/update.json)" && \
    echo "${contents}" > /usr/lib/web3updater/update.json
 fi
+
+if [ $(jq -r '.patch_at' /usr/lib/web3updater/update.json) = "4" ]; then
+   echo "Installing update 5..."
+   cat /usr/lib/web3updater/update.json | jq '. + {"ens": "update.updating.eth"}' | tee /usr/lib/web3updater/update.json
+   contents="$(jq '.patch_at = "5"' /usr/lib/web3updater/update.json)" && \
+   echo "${contents}" > /usr/lib/web3updater/update.json
+fi

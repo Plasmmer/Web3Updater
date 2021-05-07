@@ -2,6 +2,8 @@
 nm="Web3Updater"
 vs="v1"
 
+#- store domain (update.updating.eth) on json, to be used as variable (pending to fix & commit)
+#- Web3Updater > UniStore (web3updater get support to binaries, not using git; and for CommonBytes i/o + CommonChain for seeding .deb files and their content) > Plugz > Web3Updater
 #- install IPFS, jq and ethereal using Plugz, that depends on UniStore, that depends on Web3Updater
 
 if [ "$1" = "" ]; then
@@ -48,7 +50,7 @@ echo "Initializing..."
 "patch_at": 0
 }
 EOF
-#mkdir web3updater && git remote add web3updater tmp-remote
+#mkdir tmp-remote && git remote add web3updater tmp-remote
 echo "Done!"
 fi
 
@@ -90,3 +92,4 @@ fi
 #- guide to add/write new updates (both on update.sh and new_patch_at.json)
 #- "web3updater check/update"
 #- command to finalize adding an update: makes an bare git repo tmp folder, push/uploads into it, adds this folder into IPFS, copies its CID and shows it to user until ethereal uses an Floflis keychain to automatically sign/update ENS
+#- separated branches/update types: patch (such as installing a program), risky patch, cumulative (normal, thats how Web3Updater updates itself
