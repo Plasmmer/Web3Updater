@@ -1,4 +1,30 @@
 #!/bin/bash
+nm="Web3Updater"
+vs="v1"
+web3updaterversion="""
+        \e[1;42m $nm \e[0m\e[100m version $vs \e[0m
+        \e[100m Created in 02-05-2021 by Daniell Mesquita \e[0m
+"""
+
+#- install on /libs folder like Floflis, with its /bin exec
+
+if [ "$1" = "" ]; then
+   echo "$web3updaterversion"
+   echo "Type 'web3updater --help' (without quotes) to see a list of available commands."
+fi
+
+if [ "$1" = "--help" ] || [ "$1" = "-h" ]; then
+   echo "        \e[1;42m $nm $vs \e[0m"
+   echo "Use these commands after/together with 'web3updater' command."
+   echo "Available commands:"
+   echo "Information:"
+   echo "   --help, -h                  Shows all available commands"
+   echo "   --version, -v               Shows the version of $nm"
+fi
+
+if [ "$1" = "--version" ] || [ "$1" = "-v" ]; then
+   echo "$web3updaterversion"
+fi
 
 echo "Welcome to Web3Updater!"
 echo "Made in a day where my mom couln't sleep because of an Hare Krishna that lives with my uncle, and the whole day she yelled at us and I became confused. Half day building this piece of art+utility, half day reasoning poorly and thinking to burn all my crypto because money != peace in some cases. But I won't burn my tokens because there are my mom, my uncle and my sister counting on me, and I hope I can change the life of more people, if I even can change the life of my mom and myself/; which is being hard. My brain bugged now to think more so I'll try to focus back on outbursting by building this heresy that no one of these machist transphobe beared professional programmers have thought of. I know Im writing like in 2019 and this is an backstep, but my brain really bugged today, my rare peace of mind from a whole month has been partly broken today. My mom is bipolar, and about Hare I don't want to judge while irritated."
@@ -54,11 +80,9 @@ else
     echo "Recently updated at: $(jq -r '.recently_updated_at' update.json)"
 fi
 
-#- JSON field: recently checked, recently updated
+#- JSON field: recently checked, recently updated (pending to fix & commit)
 
-#- install on /libs folder like Floflis, with its /bin exec
 #- command to init on a project (only CLI, for now - adds the full web3updater lib installable globally + its custom new_patch_at.json, update.sh, update.json, etc) - "web3updater init"
-#- help and version
 #- EPNS notifications
 #- suggest adding CLI app into UniStore instead of web3updater init (Plugz on UniStore will add web3updater as dependency, as IPFS is a dependency of web3updater)
 #- guide to add/write new updates (both on update.sh and new_patch_at.json)
