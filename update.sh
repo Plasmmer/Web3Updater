@@ -1,13 +1,32 @@
 #!/bin/bash
 
-if [ $(jq -r '.patch_at' patch_at.json) = "0" ]; then
+if [ $(jq -r '.patch_at' update.json) = "0" ]; then
    echo "Installing update 1..."
    echo "This is a thing that the first update did." > patch_1.txt
-   jq '.patch_at = "1"' patch_at.json > "$tmp" && mv "$tmp" patch_at.json
+   contents="$(jq '.patch_at = "1"' update.json)" && \
+   echo "${contents}" > update.json
 fi
 
-if [ $(jq -r '.patch_at' patch_at.json) = "1" ]; then
+if [ $(jq -r '.patch_at' update.json) = "1" ]; then
    echo "Installing update 2..."
    echo "This is another effect made by an update." > another_effect.txt
-   jq '.patch_at = "2"' patch_at.json > "$tmp" && mv "$tmp" patch_at.json
+   contents="$(jq '.patch_at = "2"' update.json)" && \
+   echo "${contents}" > update.json
+fi
+
+if [ $(jq -r '.patch_at' update.json) = "2" ]; then
+   echo "Installing update 3..."
+   rm patch_1.txt
+   rm another_effect.txt
+   cat update.json | jq '. + {"cid_at": ""}' | tee update.json
+   contents="$(jq '.patch_at = "3"' update.json)" && \
+   echo "${contents}" > update.json
+fi
+
+if [ $(jq -r '.patch_at' update.json) = "3" ]; then
+   echo "Installing update 4..."
+   cat update.json | jq '. + {"recently_checked_at": ""}' | tee update.json
+   cat update.json | jq '. + {"recently_updated_at": ""}' | tee update.json
+   contents="$(jq '.patch_at = "4"' update.json)" && \
+   echo "${contents}" > update.json
 fi
