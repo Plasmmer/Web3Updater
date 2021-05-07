@@ -7,10 +7,13 @@ web3updaterversion="""
 """
 
 #- install on /libs folder like Floflis, with its /bin exec
+#- install IPFS, jq and ethereal using Plugz, that depends on UniStore, that depends on Web3Updater
 
 if [ "$1" = "" ]; then
-   echo "$web3updaterversion"
-   echo "Type 'web3updater --help' (without quotes) to see a list of available commands."
+   if [ -f update.json ]; then
+      echo "$web3updaterversion"
+      echo "Type 'web3updater --help' (without quotes) to see a list of available commands."
+fi
 fi
 
 if [ "$1" = "--help" ] || [ "$1" = "-h" ]; then
