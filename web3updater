@@ -51,7 +51,7 @@ echo "Initializing..."
 "patch_at": 0
 }
 EOF
-#mkdir tmp-remote && git remote add web3updater tmp-remote
+mkdir /usr/lib/web3updater/tmp-remote && git remote add web3updater /usr/lib/web3updater/tmp-remote
 echo "Done!"
 fi
 
