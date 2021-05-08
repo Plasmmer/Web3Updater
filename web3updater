@@ -76,7 +76,7 @@ if [ "$(jq -r '.new_patch_at' /usr/lib/web3updater/new_patch_at.json)" -gt "$(jq
     #ipfs ls $(ethereal ens contenthash get --domain=update.updating.eth)
     #ipfs get --output=tmp-remote $(ethereal ens contenthash get --domain=update.updating.eth)
     #ipfs pin add $(ethereal ens contenthash get --domain=update.updating.eth)
-    #git pull web3updater && rm -rf tmp-remote
+    #git pull web3updater && rm -rf /usr/lib/web3updater/tmp-remote && git remote remove web3updater
     sh ./update.sh
     recentlyupdatedat=$(date +"%s")
     contents="$(jq ".recently_updated_at = \"$recentlyupdatedat\"" /usr/lib/web3updater/update.json)" && \
