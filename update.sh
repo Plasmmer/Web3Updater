@@ -14,7 +14,7 @@ if [ $(jq -r '.patch_at' /usr/lib/web3updater/update.json) = "1" ]; then
    echo "${contents}" > /usr/lib/web3updater/update.json
 fi
 
-if [ $(jq -r '.patch_at' /usr/lib/web3updater/update.json) = "2" ]; then
+if [ $(jq -r '.patch_at' /usr/lib/web3updater/update.json) = 2 ]; then
    echo "Installing update 3..."
    rm /usr/lib/web3updater/patch_1.txt
    rm /usr/lib/web3updater/another_effect.txt
@@ -23,7 +23,7 @@ if [ $(jq -r '.patch_at' /usr/lib/web3updater/update.json) = "2" ]; then
    echo "${contents}" > /usr/lib/web3updater/update.json
 fi
 
-if [ $(jq -r '.patch_at' /usr/lib/web3updater/update.json) = "3" ]; then
+if [ $(jq -r '.patch_at' /usr/lib/web3updater/update.json) = 3 ]; then
    echo "Installing update 4..."
    cat /usr/lib/web3updater/update.json | jq '. + {"recently_checked_at": ""}' | tee /usr/lib/web3updater/update.json
    cat /usr/lib/web3updater/update.json | jq '. + {"recently_updated_at": ""}' | tee /usr/lib/web3updater/update.json
@@ -31,7 +31,7 @@ if [ $(jq -r '.patch_at' /usr/lib/web3updater/update.json) = "3" ]; then
    echo "${contents}" > /usr/lib/web3updater/update.json
 fi
 
-if [ $(jq -r '.patch_at' /usr/lib/web3updater/update.json) = "4" ]; then
+if [ $(jq -r '.patch_at' /usr/lib/web3updater/update.json) = 4 ]; then
    echo "Installing update 5..."
    cat /usr/lib/web3updater/update.json | jq '. + {"ens": "update.updating.eth"}' | tee /usr/lib/web3updater/update.json
    contents="$(jq '.patch_at = "5"' /usr/lib/web3updater/update.json)" && \

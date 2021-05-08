@@ -63,24 +63,25 @@ echo "Checking for new updates..."
 
 if [ $(jq -r '.patch_at' /usr/lib/web3updater/update.json) -ge "4" ]; then
     recentlycheckedat=$(date +"%s")
-    echo "$recentlycheckedat"
     contents="$(jq ".recently_checked_at = \"$recentlycheckedat\"" /usr/lib/web3updater/update.json)" && \
     echo "${contents}" > /usr/lib/web3updater/update.json
 fi
 
 if [ "$(jq -r '.new_patch_at' /usr/lib/web3updater/new_patch_at.json)" -gt "$(jq -r '.patch_at' /usr/lib/web3updater/update.json)" ]; then
     echo "Updating $nm..."
-    cidat=$(ethereal ens contenthash get --domain=update.updating.eth)
-    contents="$(jq ".cid_at = \"$cidat\"" /usr/lib/web3updater/update.json)" && \
-    echo "${contents}" > /usr/lib/web3updater/update.json
     #ipfs ls $(ethereal ens contenthash get --domain=update.updating.eth)
-    #ipfs get --output=tmp-remote $(ethereal ens contenthash get --domain=update.updating.eth)
+    #ipfs get --output=/usr/lib/web3updater/tmp-remote $(ethereal ens contenthash get --domain=update.updating.eth)
     #ipfs pin add $(ethereal ens contenthash get --domain=update.updating.eth)
-    #git pull web3updater && rm -rf /usr/lib/web3updater/tmp-remote && git remote remove web3updater
+    #git pull web3updater && git remote remove web3updater && rm -rf /usr/lib/web3updater/tmp-remote
     sh ./update.sh
     recentlyupdatedat=$(date +"%s")
     contents="$(jq ".recently_updated_at = \"$recentlyupdatedat\"" /usr/lib/web3updater/update.json)" && \
     echo "${contents}" > /usr/lib/web3updater/update.json
+    if [ $(jq -r '.patch_at' /usr/lib/web3updater/update.json) -ge 3 ]; then
+        cidat=$(ethereal ens contenthash get --domain=update.updating.eth)
+        contents="$(jq ".cid_at = \"$cidat\"" /usr/lib/web3updater/update.json)" && \
+        echo "${contents}" > /usr/lib/web3updater/update.json
+fi
 else
     echo "UP-TO-DATE like a breeze! No new updates to install, yet."
     contents=$(jq -r '.recently_checked_at' /usr/lib/web3updater/update.json)
