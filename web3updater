@@ -56,7 +56,7 @@ echo "Done!"
 fi
 
 echo ""
-echo "Version: v1 / Patch: $(jq -r '.patch_at' /usr/lib/web3updater/update.json)"
+echo "Version: $vs / Patch: $(jq -r '.patch_at' /usr/lib/web3updater/update.json)"
 echo ""
 echo "Checking for new updates..."
 
