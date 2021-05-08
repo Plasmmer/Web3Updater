@@ -2,7 +2,6 @@
 nm="Web3Updater"
 vs="v1"
 
-#- JSON field: recently checked, recently updated (pending to fix & commit)
 #- store domain (update.updating.eth) on json, to be used as variable (pending to fix & commit)
 #- Web3Updater > UniStore (web3updater get support to binaries, not using git; and for CommonBytes i/o + CommonChain for seeding .deb files and their content; CLI apps with their own ASCII icons) > Plugz (mini embed installer to run directly from CLI apps) > Web3Updater
 #- install Plugz (includes IPFS, jq) and ethereal using Plugz, that depends on UniStore, that depends on Web3Updater
@@ -63,14 +62,14 @@ echo "Checking for new updates..."
 if [ $(jq -r '.patch_at' /usr/lib/web3updater/update.json) -ge "4" ]; then
     recentlycheckedat=$(echo '('`date +"%s.%N"` ' * 1000000)/1' | bc)
     echo "$recentlycheckedat"
-    contents="$(jq '.recently_checked_at = "$recentlycheckedat"' /usr/lib/web3updater/update.json)" && \
-    echo "${contents}" > /usr/lib/web3updater/update.json # have to fix, its literally writing $recentlycheckedat
+    contents="$(jq ".recently_checked_at = \"$recentlycheckedat\"" /usr/lib/web3updater/update.json)" && \
+    echo "${contents}" > /usr/lib/web3updater/update.json
 fi
 
 if [ "$(jq -r '.new_patch_at' /usr/lib/web3updater/new_patch_at.json)" -gt "$(jq -r '.patch_at' /usr/lib/web3updater/update.json)" ]; then
     echo "Updating $nm..."
     cidat=$(ethereal ens contenthash get --domain=update.updating.eth)
-    contents="$(jq '.cid_at = "$cidat"' /usr/lib/web3updater/update.json)" && \
+    contents="$(jq ".cid_at = \"$cidat\"" /usr/lib/web3updater/update.json)" && \
     echo "${contents}" > /usr/lib/web3updater/update.json
     #ipfs ls $(ethereal ens contenthash get --domain=update.updating.eth)
     #ipfs get --output=tmp-remote $(ethereal ens contenthash get --domain=update.updating.eth)
@@ -78,8 +77,8 @@ if [ "$(jq -r '.new_patch_at' /usr/lib/web3updater/new_patch_at.json)" -gt "$(jq
     #git pull web3updater && rm -rf tmp-remote
     sh ./update.sh
     recentlyupdatedat=$(echo '('`date +"%s.%N"` ' * 1000000)/1' | bc)
-    contents="$(jq '.recently_updated_at = "$recentlyupdatedat"' /usr/lib/web3updater/update.json)" && \
-    echo "${contents}" > /usr/lib/web3updater/update.json # have to fix, its literally writing $recentlyupdatedat
+    contents="$(jq ".recently_updated_at = \"$recentlyupdatedat\"" /usr/lib/web3updater/update.json)" && \
+    echo "${contents}" > /usr/lib/web3updater/update.json
 else
     echo "UP-TO-DATE like a breeze! No new updates to install, yet."
     echo "Recently checked at: $(jq -r '.recently_checked_at' /usr/lib/web3updater/update.json)"

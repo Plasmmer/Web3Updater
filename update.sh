@@ -16,8 +16,8 @@ fi
 
 if [ $(jq -r '.patch_at' /usr/lib/web3updater/update.json) = "2" ]; then
    echo "Installing update 3..."
-   sudo rm /usr/lib/web3updater/patch_1.txt
-   sudo rm /usr/lib/web3updater/another_effect.txt
+   rm /usr/lib/web3updater/patch_1.txt
+   rm /usr/lib/web3updater/another_effect.txt
    cat /usr/lib/web3updater/update.json | jq '. + {"cid_at": ""}' | tee /usr/lib/web3updater/update.json
    contents="$(jq '.patch_at = "3"' /usr/lib/web3updater/update.json)" && \
    echo "${contents}" > /usr/lib/web3updater/update.json
