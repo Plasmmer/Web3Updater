@@ -2,9 +2,6 @@
 nm="Web3Updater"
 vs="v1"
 
-#- Web3Updater > UniStore (web3updater get support to binaries, not using git; and for CommonBytes i/o + CommonChain for seeding .deb files and their content; CLI apps with their own ASCII icons) > Plugz (mini embed installer to run directly from CLI apps) > Web3Updater
-#- install Plugz (includes IPFS, jq) and ethereal using Plugz, that depends on UniStore, that depends on Web3Updater
-
 if [ "$1" = "" ]; then
    if [ -f /usr/lib/web3updater/update.json ]; then
       web3updaterversion="""
@@ -95,17 +92,18 @@ else
     echo "Recently updated at: $(date -d @${contents})"
 fi
 
+#- Web3Updater > UniStore (web3updater get support to binaries, not using git; and for CommonBytes i/o + CommonChain for seeding .deb files and their content; CLI apps with their own ASCII icons) > Plugz (mini embed installer to run directly from CLI apps) > Web3Updater
+#- install Plugz (includes IPFS, jq) and ethereal using Plugz, that depends on UniStore, that depends on Web3Updater
+
 #- command to init on a project (only CLI, for now - adds the full web3updater lib installable globally + its custom new_patch_at.json, update.sh, update.json, etc) - "web3updater init"
-#- EPNS notifications
-#- suggest adding CLI app into UniStore instead of web3updater init (Plugz on UniStore will add web3updater as dependency, as IPFS is a dependency of web3updater)
 #- guide to add/write new updates (both on update.sh and new_patch_at.json)
+#- suggest adding CLI app into UniStore instead of web3updater init (Plugz on UniStore will add web3updater as dependency, as IPFS is a dependency of web3updater)
 #- "web3updater check/update"
-#- command to finalize adding an update: makes an bare git repo tmp folder, push/uploads into it, adds this folder into IPFS, copies its CID and shows it to user until ethereal uses an Floflis keychain to automatically sign/update ENS
+#- command to finalize adding an update: makes an bare git repo tmp folder (git init --bare build && git remote add build build), push/uploads into it, adds this folder into IPFS, copies its CID and shows it to user until ethereal uses an Floflis keychain to automatically sign/update ENS
 
+#- factory reset
+#- issue: "ge"/"gt" https://www.google.com/search?q=bash+jq+-ge%3A+unexpected+operator&client=firefox-b-d&sxsrf=ALeKk02M1HdgqOD_uVa8r1cbaFzibUu1qA%3A1620507855770&ei=z_yWYMOhLo_e1sQPnZ6L6Ac&oq=bash+jq+-ge%3A+unexpected+operator&gs_lcp=Cgdnd3Mtd2l6EAM6BwgAEEcQsANQ9_EJWJOICmDoiwpoAXACeACAAbkBiAHsCpIBAzAuOZgBAKABAaoBB2d3cy13aXrIAQjAAQE&sclient=gws-wiz&ved=0ahUKEwiDxeSY_rrwAhUPr5UCHR3PAn0Q4dUDCAw&uact=5 because of using jq to write and at same time to read (collision)
 #- separated branches/update types: patch (such as installing a program), risky patch, cumulative (normal, thats how Web3Updater updates itself
-
+#- EPNS notifications
 #- if IPFS is not running, run it
 #- incentive to use an local ethereum node (also from .ppl), instead of infura
-#- factory reset
-#- git init --bare build && git remote add build build
-#- issue: "ge"/"gt" https://www.google.com/search?q=bash+jq+-ge%3A+unexpected+operator&client=firefox-b-d&sxsrf=ALeKk02M1HdgqOD_uVa8r1cbaFzibUu1qA%3A1620507855770&ei=z_yWYMOhLo_e1sQPnZ6L6Ac&oq=bash+jq+-ge%3A+unexpected+operator&gs_lcp=Cgdnd3Mtd2l6EAM6BwgAEEcQsANQ9_EJWJOICmDoiwpoAXACeACAAbkBiAHsCpIBAzAuOZgBAKABAaoBB2d3cy13aXrIAQjAAQE&sclient=gws-wiz&ved=0ahUKEwiDxeSY_rrwAhUPr5UCHR3PAn0Q4dUDCAw&uact=5 because of using jq to write and at same time to read (collision)
