@@ -14,7 +14,7 @@ source /usr/lib/web3updater/web3updater
 ENDOFFILE
 
 echo "- Turning Web3Updater into a executable..."
-chmod 755 /usr/bin/web3updater && $maysudo chmod +x /usr/bin/web3updater
+chmod 755 /usr/bin/web3updater && sudo chmod +x /usr/bin/web3updater
 
 sudo rm /usr/lib/web3updater/install.sh # no need anymore to use the installer again
 

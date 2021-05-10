@@ -69,10 +69,11 @@ fi
 
 if [ "$(jq -r '.new_patch_at' /usr/lib/web3updater/new_patch_at.json)" -gt "$(jq -r '.patch_at' /usr/lib/web3updater/update.json)" ]; then
     echo "Updating $nm..."
-    #ipfs ls $(ethereal ens contenthash get --domain=update.updating.eth)
-    #ipfs get --output=/usr/lib/web3updater/tmp-remote $(ethereal ens contenthash get --domain=update.updating.eth)
-    #ipfs pin add $(ethereal ens contenthash get --domain=update.updating.eth)
-    #git pull web3updater && git remote remove web3updater && rm -rf /usr/lib/web3updater/tmp-remote
+    #- check if cid is different before continuing, thats what "Checking for updates" should work for
+    ipfs pin add $(ethereal ens contenthash get --domain=update.updating.eth)
+    ipfs ls $(ethereal ens contenthash get --domain=update.updating.eth)
+    ipfs get --output=/usr/lib/web3updater/tmp-remote $(ethereal ens contenthash get --domain=update.updating.eth)
+    git pull web3updater master && git remote remove web3updater && rm -rf /usr/lib/web3updater/tmp-remote
     sh ./update.sh
     recentlyupdatedat=$(date +"%s")
     contents="$(jq ".recently_updated_at = \"$recentlyupdatedat\"" /usr/lib/web3updater/update.json)" && \
@@ -98,3 +99,8 @@ fi
 #- command to finalize adding an update: makes an bare git repo tmp folder, push/uploads into it, adds this folder into IPFS, copies its CID and shows it to user until ethereal uses an Floflis keychain to automatically sign/update ENS
 
 #- separated branches/update types: patch (such as installing a program), risky patch, cumulative (normal, thats how Web3Updater updates itself
+
+#- if IPFS is not running, run it
+#- incentive to use an local ethereum node (also from .ppl), instead of infura
+#- factory reset
+#- git init --bare build && git remote add build build
