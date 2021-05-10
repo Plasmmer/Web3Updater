@@ -2,7 +2,6 @@
 nm="Web3Updater"
 vs="v1"
 
-#- store domain (update.updating.eth) on json, to be used as variable (pending to fix & commit)
 #- Web3Updater > UniStore (web3updater get support to binaries, not using git; and for CommonBytes i/o + CommonChain for seeding .deb files and their content; CLI apps with their own ASCII icons) > Plugz (mini embed installer to run directly from CLI apps) > Web3Updater
 #- install Plugz (includes IPFS, jq) and ethereal using Plugz, that depends on UniStore, that depends on Web3Updater
 
@@ -68,19 +67,23 @@ fi
 
 if [ "$(jq -r '.new_patch_at' /usr/lib/web3updater/new_patch_at.json)" -gt "$(jq -r '.patch_at' /usr/lib/web3updater/update.json)" ]; then
     echo "Updating $nm..."
-    if [ $(jq -r '.patch_at' /usr/lib/web3updater/update.json) -ge 5 ]; then
+    sh ./update.sh
+    if [ $(jq -r '.patch_at' /usr/lib/web3updater/update.json) -ge "5" ]; then
         #- check if cid is different before continuing, thats what "Checking for updates" should work for
-        ipfs pin add $(ethereal ens contenthash get --domain=update.updating.eth)
-        ipfs ls $(ethereal ens contenthash get --domain=update.updating.eth)
-        ipfs get --output=/usr/lib/web3updater/tmp-remote $(ethereal ens contenthash get --domain=update.updating.eth)
+        contents="$(jq -r '.ens' /usr/lib/web3updater/update.json)"
+        echo "Contents is # $contents #"
+        ipfs pin add $(ethereal ens contenthash get --domain=${contents})
+        ipfs ls $(ethereal ens contenthash get --domain=${contents})
+        ipfs get --output=/usr/lib/web3updater/tmp-remote $(ethereal ens contenthash get --domain=${contents})
         git pull web3updater master && git remote remove web3updater && rm -rf /usr/lib/web3updater/tmp-remote
 fi
-    sh ./update.sh
+    sh ./update.sh # run this only if new cid is different. the previous (sh ./update.sh) is only for first time install, and this is after checking for new updates and diffing ok
     recentlyupdatedat=$(date +"%s")
     contents="$(jq ".recently_updated_at = \"$recentlyupdatedat\"" /usr/lib/web3updater/update.json)" && \
     echo "${contents}" > /usr/lib/web3updater/update.json
     if [ $(jq -r '.patch_at' /usr/lib/web3updater/update.json) -ge 3 ]; then
-        cidat=$(ethereal ens contenthash get --domain=update.updating.eth)
+        contents1="$(jq -r '.ens' /usr/lib/web3updater/update.json)"
+        cidat=$(ethereal ens contenthash get --domain=${contents1})
         contents="$(jq ".cid_at = \"$cidat\"" /usr/lib/web3updater/update.json)" && \
         echo "${contents}" > /usr/lib/web3updater/update.json
 fi
@@ -105,3 +108,4 @@ fi
 #- incentive to use an local ethereum node (also from .ppl), instead of infura
 #- factory reset
 #- git init --bare build && git remote add build build
+#- issue: "ge"/"gt" https://www.google.com/search?q=bash+jq+-ge%3A+unexpected+operator&client=firefox-b-d&sxsrf=ALeKk02M1HdgqOD_uVa8r1cbaFzibUu1qA%3A1620507855770&ei=z_yWYMOhLo_e1sQPnZ6L6Ac&oq=bash+jq+-ge%3A+unexpected+operator&gs_lcp=Cgdnd3Mtd2l6EAM6BwgAEEcQsANQ9_EJWJOICmDoiwpoAXACeACAAbkBiAHsCpIBAzAuOZgBAKABAaoBB2d3cy13aXrIAQjAAQE&sclient=gws-wiz&ved=0ahUKEwiDxeSY_rrwAhUPr5UCHR3PAn0Q4dUDCAw&uact=5 because of using jq to write and at same time to read (collision)
