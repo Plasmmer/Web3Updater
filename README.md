@@ -19,10 +19,10 @@ Web3Updater is developed with focus on being:
 Feel free to open an issue, [here](https://github.com/DaniellMesquita/Web3Updater/issues). Pull requests are even more welcome <3
 
 ## Powered by the amazing:
-* [jq](https://github.com/stedolan/jq)
-* [IPFS](https://github.com/ipfs/go-ipfs)
-* [IPFS Desktop](https://github.com/ipfs/ipfs-desktop)
-* [Ethereum](https://github.com/ethereum)
-* [ENS - Ethereum Name System](https://github.com/ensdomains/ens)
-* [ethereal](https://github.com/wealdtech/ethereal)
-* [git](https://github.com/git/git)
+* [jq](https://github.com/stedolan/jq) (for parsing .JSON data)
+* [IPFS](https://github.com/ipfs/go-ipfs) (for running as daemon)
+* [IPFS Desktop](https://github.com/ipfs/ipfs-desktop) (for optionally being installable to leverage go-ipfs in a GUI)
+* [Ethereum](https://github.com/ethereum) (for powering ENS on its blockchain smart-contract platform)
+* [ENS - Ethereum Name System](https://github.com/ensdomains/ens) (for powering decentralized domains/DNS)
+* [ethereal](https://github.com/wealdtech/ethereal) (for being an CLI to interact with Ethereum and ENS)
+* [git](https://github.com/git/git) (for versioning, de-duplicing and downloading update data)
