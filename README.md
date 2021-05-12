@@ -1,3 +1,5 @@
+# Web3Updater
+
 Imagine Windows Update, but for the Web 3.0 and for any app/CLI program/OS.
 
 Web3Updater takes use of ENS (Ethereum Name System) to store file/folder content hashes (known on IPFS as CIDs - Content IDs), so updates are secured by the Ethereum blockchain; in the next step, these updates are downloaded directly from IPFS and patched, and also seeded to other neighboor users (P2P, faster updates).
@@ -11,3 +13,12 @@ Web3Updater is developed with focus on being:
 - Agnostic
 - Portable
 - Scalable
+
+## Powered by the amazing:
+* [jq](https://github.com/stedolan/jq)
+* [IPFS](https://github.com/ipfs/go-ipfs)
+* [IPFS Desktop](https://github.com/ipfs/ipfs-desktop)
+* [Ethereum](https://github.com/ethereum)
+* [ENS - Ethereum Name System](https://github.com/ensdomains/ens)
+* [ethereal](https://github.com/wealdtech/ethereal)
+* [git](https://github.com/git/git)
