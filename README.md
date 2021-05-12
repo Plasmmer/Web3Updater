@@ -16,7 +16,7 @@ Web3Updater is developed with focus on being:
 
 ### Questions? Suggestions?
 
-Feel free to open an issue, [here](https://github.com/DaniellMesquita/Web3Updater/issues). Pull requests are even more welcome <3
+Feel free to open an issue, [here](https://github.com/DaniellMesquita/Web3Updater/issues). Pull requests also are welcome <3
 
 ## Powered by the amazing:
 * [jq](https://github.com/stedolan/jq) (for parsing .JSON data)
