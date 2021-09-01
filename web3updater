@@ -92,12 +92,11 @@ else
     echo "Recently updated at: $(date -d @${contents})"
 fi
 
-#- Web3Updater > UniStore (web3updater get support to binaries, not using git; and for CommonBytes i/o + CommonChain for seeding .deb files and their content; CLI apps with their own ASCII icons) > Plugz (mini embed installer to run directly from CLI apps) > Web3Updater
 #- install Plugz (includes IPFS, jq) and ethereal using Plugz, that depends on UniStore, that depends on Web3Updater
 
 #- factory reset
 #- issue: "ge"/"gt" https://www.google.com/search?q=bash+jq+-ge%3A+unexpected+operator&client=firefox-b-d&sxsrf=ALeKk02M1HdgqOD_uVa8r1cbaFzibUu1qA%3A1620507855770&ei=z_yWYMOhLo_e1sQPnZ6L6Ac&oq=bash+jq+-ge%3A+unexpected+operator&gs_lcp=Cgdnd3Mtd2l6EAM6BwgAEEcQsANQ9_EJWJOICmDoiwpoAXACeACAAbkBiAHsCpIBAzAuOZgBAKABAaoBB2d3cy13aXrIAQjAAQE&sclient=gws-wiz&ved=0ahUKEwiDxeSY_rrwAhUPr5UCHR3PAn0Q4dUDCAw&uact=5 because of using jq to write and at same time to read (collision)
-#- separated branches/update types: patch (such as installing a program), risky patch, cumulative (normal, thats how Web3Updater updates itself
+#- separated branches/update types: patch (such as installing a program - with sub-options optional and important), risky patch, cumulative (normal, thats how Web3Updater updates itself
 #- EPNS notifications
 #- if IPFS is not running, run it
 #- incentive to use an local ethereum node (also from .ppl), instead of infura

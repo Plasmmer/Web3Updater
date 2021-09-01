@@ -5,6 +5,7 @@ if [ $(jq -r '.patch_at' /usr/lib/web3updater/update.json) = "0" ]; then
    echo "This is a thing that the first update did." > /usr/lib/web3updater/patch_1.txt
    contents="$(jq '.patch_at = "1"' /usr/lib/web3updater/update.json)" && \
    echo "${contents}" > /usr/lib/web3updater/update.json
+   # 29-08 - NEW DISCOVERY: replace this 2 line with this: cat config.json | jq '. + {patch_at: "1"}' > config.json2; mv -f config.json{2,}
 fi
 
 if [ $(jq -r '.patch_at' /usr/lib/web3updater/update.json) = "1" ]; then
