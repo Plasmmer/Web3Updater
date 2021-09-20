@@ -9,9 +9,11 @@ To validate decentralized DNS/domains.
 #### Why Ethereum?
 Because it is an pioneer on smart-contracts and fostering innovation (such as token-burning, PoS and sharding) while preferring decentralization/security over speed.
 
+## How it works
+
 First, W3U takes use of ENS (Ethereum Name System) to store file/folder content hashes (known on IPFS as CIDs - Content IDs), so updates are secured by the Ethereum blockchain; in the next step, these updates are downloaded directly from IPFS (not a blockchain, but a distributed file-sharing protocol like BitTorrent) and patched, and also seeded to other neighboor users (P2P, faster updates).
 
-It can not only be itself updating itself (meta language), but can also be initiated in your projects; for now only CLI apps, but soon we will enable new creative uses such as an NPM package to decentralizedly update Electron apps.
+It can not only be itself updating itself (meta language), but can also be initiated in your projects (soon); for now only CLI apps, but soon we will enable new creative uses such as an NPM package to decentralizedly update Electron apps.
 
 ----
 
