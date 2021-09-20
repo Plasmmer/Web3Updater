@@ -62,7 +62,8 @@ if [ $(jq -r '.patch_at' /usr/lib/web3updater/update.json) -ge "4" ]; then
     echo "${contents}" > /usr/lib/web3updater/update.json
 fi
 
-if [ "$(jq -r '.new_patch_at' /usr/lib/web3updater/new_patch_at.json)" -gt "$(jq -r '.patch_at' /usr/lib/web3updater/update.json)" ]; then
+# Check if new_patch_at.json is telling us of an new update (similar of how web worker does on PWAs)
+if [ "$(jq -r '.new_patch_at' /usr/lib/web3updater/new_patch_at.json)" -gt "$(jq -r '.patch_at' /usr/lib/web3updater/update.json)" ]; then # if new_patch_at.json contains an bigger number than what update.json have registered: BINGO! fire new update :)
     echo "Updating $nm..."
     sh ./update.sh
     if [ $(jq -r '.patch_at' /usr/lib/web3updater/update.json) -ge "5" ]; then
