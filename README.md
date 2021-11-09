@@ -1,4 +1,4 @@
-# <img src="W3U_logotype.svg" title="Web3Updater" alt="Web3Updater">
+# <img src="logotype.svg" title="Web3Updater" alt="Web3Updater">
 
 Imagine Windows Update, but for the Web 3.0 and for any app/CLI program/OS.
 
