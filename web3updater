@@ -2,6 +2,8 @@
 nm="Web3Updater"
 vs="v1"
 
+SCRIPTPATH="$( cd -- "$(dirname "$0")" >/dev/null 2>&1 ; pwd -P )"
+
 if [ "$1" = "" ]; then
    if [ -f /usr/lib/web3updater/update.json ]; then
       web3updaterversion="""
@@ -46,7 +48,7 @@ echo "Initializing..."
 "patch_at": 0
 }
 EOF
-mkdir /usr/lib/web3updater/tmp-remote && git remote add web3updater /usr/lib/web3updater/tmp-remote
+mkdir /usr/lib/web3updater/tmp-remote && cd /usr/lib/web3updater && git remote add web3updater tmp-remote && cd "$SCRIPTPATH"
 echo "Done!"
 fi
 
@@ -56,16 +58,17 @@ echo "Version: $vs / Patch: $(jq -r '.patch_at' /usr/lib/web3updater/update.json
 echo ""
 echo "Checking for new updates..."
 
-if [ $(jq -r '.patch_at' /usr/lib/web3updater/update.json) -ge "4" ]; then
-    recentlycheckedat=$(date +"%s")
-    contents="$(jq ".recently_checked_at = \"$recentlycheckedat\"" /usr/lib/web3updater/update.json)" && \
-    echo "${contents}" > /usr/lib/web3updater/update.json
-fi
+# --------------##########---------------------- What this does?
+#if [ $(jq -r '.patch_at' /usr/lib/web3updater/update.json) -ge "4" ]; then
+#    recentlycheckedat=$(date +"%s")
+#    contents="$(jq ".recently_checked_at = \"$recentlycheckedat\"" /usr/lib/web3updater/update.json)" && \
+#    echo "${contents}" > /usr/lib/web3updater/update.json
+#fi
 
 # Check if new_patch_at.json is telling us of an new update (similar of how web worker does on PWAs)
 if [ "$(jq -r '.new_patch_at' /usr/lib/web3updater/new_patch_at.json)" -gt "$(jq -r '.patch_at' /usr/lib/web3updater/update.json)" ]; then # if new_patch_at.json contains an bigger number than what update.json have registered: BINGO! fire new update :)
     echo "Updating $nm..."
-    sh ./update.sh
+    sh /usr/lib/web3updater/./update.sh
     if [ $(jq -r '.patch_at' /usr/lib/web3updater/update.json) -ge "5" ]; then
         #- check if cid is different before continuing, thats what "Checking for updates" should work for
         contents="$(jq -r '.ens' /usr/lib/web3updater/update.json)"
@@ -73,9 +76,9 @@ if [ "$(jq -r '.new_patch_at' /usr/lib/web3updater/new_patch_at.json)" -gt "$(jq
         ipfs pin add $(ethereal ens contenthash get --domain=${contents})
         ipfs ls $(ethereal ens contenthash get --domain=${contents})
         ipfs get --output=/usr/lib/web3updater/tmp-remote $(ethereal ens contenthash get --domain=${contents})
-        git pull web3updater master && git remote remove web3updater && rm -rf /usr/lib/web3updater/tmp-remote
+        cd /usr/lib/web3updater && git pull web3updater main && git remote remove web3updater && rm -rf /usr/lib/web3updater/tmp-remote && cd "$SCRIPTPATH"
 fi
-    sh ./update.sh # run this only if new cid is different. the previous (sh ./update.sh) is only for first time install, and this is after checking for new updates and diffing ok
+    sh /usr/lib/web3updater/./update.sh # run this only if new cid is different. the previous (sh ./update.sh) is only for first time install, and this is after checking for new updates and diffing ok
     recentlyupdatedat=$(date +"%s")
     contents="$(jq ".recently_updated_at = \"$recentlyupdatedat\"" /usr/lib/web3updater/update.json)" && \
     echo "${contents}" > /usr/lib/web3updater/update.json
