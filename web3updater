@@ -1,6 +1,6 @@
 #!/bin/bash
 nm="Web3Updater"
-vs="v1"
+vs="v2"
 
 SCRIPTPATH="$( cd -- "$(dirname "$0")" >/dev/null 2>&1 ; pwd -P )"
 
@@ -29,8 +29,8 @@ fi
 
 echo ""
 echo "Welcome to $nm!"
-echo "Made in a day where my mom couln't sleep because of an Hare Krishna that lives with my uncle, and the whole day she yelled at us and I became confused. Half day building this piece of art+utility, half day reasoning poorly and thinking to burn all my crypto because money != peace in some cases. But I won't burn my tokens because there are my mom, my uncle and my sister counting on me, and I hope I can change the life of more people, if I even can change the life of my mom and myself/; which is being hard. My brain bugged now to think more so I'll try to focus back on outbursting by building this heresy that no one of these machist transphobe beared professional programmers have thought of. I know Im writing like in 2019 and this is an backstep, but my brain really bugged today, my rare peace of mind from a whole month has been partly broken today. My mom is bipolar, and about Hare I don't want to judge while irritated."
-echo "Made in Itajai, Santa Catarina; but IMPORTANT: this is not an Brazilian funk music remix."
+echo "Made in a day where my mom couln't sleep because of an Hare Krishna that lives with my uncle, and the whole day she yelled at us and I became confused. Half day building this piece of art+utility, half day reasoning poorly and thinking to burn all my crypto because money != peace in some cases. But I won't burn my tokens because there are my mom, my uncle and my sister counting on me, and I hope I can change the life of more people, if I even can change the life of my mom and myself; which is being hard. My brain bugged now to think more so I'll try to focus back on outbursting by building this heresy that no one of these machist transphobe beared professional programmers have thought of. I know Im writing like in 2019 and this is a backstep, but my brain really bugged today, my rare peace of mind from a whole month has been partly broken today. My mom is bipolar, and about Hare I don't want to judge while irritated."
+echo "Made in Itajai, Santa Catarina; but IMPORTANT: this is not a Brazilian funk music remix."
 
 if [ ! -f /usr/lib/web3updater/update.json ]; then
     echo ""
@@ -66,7 +66,7 @@ echo "Checking for new updates..."
 #fi
 
 # Check if new_patch_at.json is telling us of an new update (similar of how web worker does on PWAs)
-if [ "$(jq -r '.new_patch_at' /usr/lib/web3updater/new_patch_at.json)" -gt "$(jq -r '.patch_at' /usr/lib/web3updater/update.json)" ]; then # if new_patch_at.json contains an bigger number than what update.json have registered: BINGO! fire new update :)
+if [ "$(jq -r '.new_patch_at' /usr/lib/web3updater/new_patch_at.json)" -gt "$(jq -r '.patch_at' /usr/lib/web3updater/update.json)" ]; then # if new_patch_at.json contains an bigger number than what update.json have registered: BINGO! fire new update :) WAIT! Hows does new_patch_at.json is updated to update? #!#!#!#!#!#!#!#!#!#!#!#!#!#!#!#!
     echo "Updating $nm..."
     sh /usr/lib/web3updater/./update.sh
     if [ $(jq -r '.patch_at' /usr/lib/web3updater/update.json) -ge "5" ]; then
