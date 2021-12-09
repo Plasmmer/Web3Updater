@@ -59,11 +59,15 @@ echo ""
 echo "Checking for new updates..."
 
 # --------------##########---------------------- What this does?
-#if [ $(jq -r '.patch_at' /usr/lib/web3updater/update.json) -ge "4" ]; then
-#    recentlycheckedat=$(date +"%s")
-#    contents="$(jq ".recently_checked_at = \"$recentlycheckedat\"" /usr/lib/web3updater/update.json)" && \
-#    echo "${contents}" > /usr/lib/web3updater/update.json
-#fi
+if [ $(jq -r '.patch_at' /usr/lib/web3updater/update.json) -ge "4" ]; then
+    recentlycheckedat=$(date +"%s")
+    contents="$(jq ".recently_checked_at = \"$recentlycheckedat\"" /usr/lib/web3updater/update.json)" && \
+    echo "${contents}" > /usr/lib/web3updater/update.json
+fi
+
+if [ "$1" = "update" ]; then
+
+fi
 
 # Check if new_patch_at.json is telling us of an new update (similar of how web worker does on PWAs)
 if [ "$(jq -r '.new_patch_at' /usr/lib/web3updater/new_patch_at.json)" -gt "$(jq -r '.patch_at' /usr/lib/web3updater/update.json)" ]; then # if new_patch_at.json contains an bigger number than what update.json have registered: BINGO! fire new update :) WAIT! Hows does new_patch_at.json is updated to update? #!#!#!#!#!#!#!#!#!#!#!#!#!#!#!#!
