@@ -66,8 +66,16 @@ if [ $(jq -r '.patch_at' /usr/lib/web3updater/update.json) -ge "4" ]; then
 fi
 
 if [ "$1" = "update" ]; then
-
+   
 fi
+
+# Remove test updates from update.sh
+# rename update.sh to updates.sh
+# remove checking for update 4 and 5 (.recently_checked_at and .ens will be standard)
+# work at eventlr
+# take inspiration of Desktop/jq-sync.sh or Desktop/update.sh for reliable jq sync
+# "web3updater update" updates in the directory it currently is. if no valid, tell and updates itself
+# fetch new_patch_at.json before checking it (through update-worker.sh)
 
 # Check if new_patch_at.json is telling us of an new update (similar of how web worker does on PWAs)
 if [ "$(jq -r '.new_patch_at' /usr/lib/web3updater/new_patch_at.json)" -gt "$(jq -r '.patch_at' /usr/lib/web3updater/update.json)" ]; then # if new_patch_at.json contains an bigger number than what update.json have registered: BINGO! fire new update :) WAIT! Hows does new_patch_at.json is updated to update? #!#!#!#!#!#!#!#!#!#!#!#!#!#!#!#!
@@ -104,7 +112,7 @@ fi
 
 #- factory reset
 #- issue: "ge"/"gt" https://www.google.com/search?q=bash+jq+-ge%3A+unexpected+operator&client=firefox-b-d&sxsrf=ALeKk02M1HdgqOD_uVa8r1cbaFzibUu1qA%3A1620507855770&ei=z_yWYMOhLo_e1sQPnZ6L6Ac&oq=bash+jq+-ge%3A+unexpected+operator&gs_lcp=Cgdnd3Mtd2l6EAM6BwgAEEcQsANQ9_EJWJOICmDoiwpoAXACeACAAbkBiAHsCpIBAzAuOZgBAKABAaoBB2d3cy13aXrIAQjAAQE&sclient=gws-wiz&ved=0ahUKEwiDxeSY_rrwAhUPr5UCHR3PAn0Q4dUDCAw&uact=5 because of using jq to write and at same time to read (collision)
-#- separated branches/update types: patch (such as installing a program - with sub-options optional and important), risky patch, cumulative (normal, thats how Web3Updater updates itself
 #- EPNS notifications
 #- if IPFS is not running, run it
+
 #- incentive to use an local ethereum node (also from .ppl), instead of infura
