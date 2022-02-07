@@ -7,7 +7,7 @@ To not depend on a centralized server.
 #### Why blockchain?
 To validate decentralized DNS/domains.
 #### Why Ethereum?
-Because it is an pioneer on smart-contracts and fostering innovation (such as token-burning, PoS and sharding) while preferring decentralization/security over speed.
+Because it is the pioneer on smart-contracts and fostering innovation (such as the eco-friendly PoS, token-burning and sharding) while preferring decentralization/security over speed.
 
 ## How it works
 
@@ -34,7 +34,6 @@ Feel free to open an issue, [here](https://github.com/DaniellMesquita/Web3Update
 ## Powered by the amazing:
 * [jq](https://github.com/stedolan/jq) (for parsing .JSON data)
 * [IPFS](https://github.com/ipfs/go-ipfs) (for serving P2P files, running as daemon)
-* [IPFS Desktop](https://github.com/ipfs/ipfs-desktop) (for optionally being installable to leverage go-ipfs in a GUI)
 * [ENS - Ethereum Name System](https://github.com/ensdomains/ens) (for powering decentralized domains/DNS)
 * [Ethereum](https://github.com/ethereum) (for powering ENS on its smart-contract blockchain platform)
 * [ethereal](https://github.com/wealdtech/ethereal) (for being an CLI to interact with Ethereum and ENS)
