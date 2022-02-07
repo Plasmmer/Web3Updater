@@ -69,8 +69,7 @@ if [ "$1" = "update" ]; then
    
 fi
 
-# Remove test updates from update.sh
-# rename update.sh to updates.sh
+# Remove test updates from updates.sh
 # remove checking for update 4 and 5 (.recently_checked_at and .ens will be standard)
 # work at eventlr
 # take inspiration of Desktop/jq-sync.sh or Desktop/update.sh for reliable jq sync
@@ -80,7 +79,7 @@ fi
 # Check if new_patch_at.json is telling us of an new update (similar of how web worker does on PWAs)
 if [ "$(jq -r '.new_patch_at' /usr/lib/web3updater/new_patch_at.json)" -gt "$(jq -r '.patch_at' /usr/lib/web3updater/update.json)" ]; then # if new_patch_at.json contains an bigger number than what update.json have registered: BINGO! fire new update :) WAIT! Hows does new_patch_at.json is updated to update? #!#!#!#!#!#!#!#!#!#!#!#!#!#!#!#!
     echo "Updating $nm..."
-    sh /usr/lib/web3updater/./update.sh
+    sh /usr/lib/web3updater/./updates.sh
     if [ $(jq -r '.patch_at' /usr/lib/web3updater/update.json) -ge "5" ]; then
         #- check if cid is different before continuing, thats what "Checking for updates" should work for
         contents="$(jq -r '.ens' /usr/lib/web3updater/update.json)"
@@ -90,7 +89,7 @@ if [ "$(jq -r '.new_patch_at' /usr/lib/web3updater/new_patch_at.json)" -gt "$(jq
         ipfs get --output=/usr/lib/web3updater/tmp-remote $(ethereal ens contenthash get --domain=${contents})
         cd /usr/lib/web3updater && git pull web3updater main && git remote remove web3updater && rm -rf /usr/lib/web3updater/tmp-remote && cd "$SCRIPTPATH"
 fi
-    sh /usr/lib/web3updater/./update.sh # run this only if new cid is different. the previous (sh ./update.sh) is only for first time install, and this is after checking for new updates and diffing ok
+    sh /usr/lib/web3updater/./updates.sh # run this only if new cid is different. the previous (sh ./updates.sh) is only for first time install, and this is after checking for new updates and diffing ok
     recentlyupdatedat=$(date +"%s")
     contents="$(jq ".recently_updated_at = \"$recentlyupdatedat\"" /usr/lib/web3updater/update.json)" && \
     echo "${contents}" > /usr/lib/web3updater/update.json
