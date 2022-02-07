@@ -35,6 +35,6 @@ Feel free to open an issue, [here](https://github.com/DaniellMesquita/Web3Update
 * [jq](https://github.com/stedolan/jq) (for parsing .JSON data)
 * [IPFS](https://github.com/ipfs/go-ipfs) (for serving P2P files, running as daemon)
 * [ENS - Ethereum Name System](https://github.com/ensdomains/ens) (for powering decentralized domains/DNS)
-* [Ethereum](https://github.com/ethereum) (for powering ENS on its smart-contract blockchain platform)
-* [ethereal](https://github.com/wealdtech/ethereal) (for being an CLI to interact with Ethereum and ENS)
+* [Ethereum](https://github.com/ethereum) (for powering ENS on its smart-contract platform)
+* [ethereal](https://github.com/wealdtech/ethereal) (for being a CLI to interact with Ethereum and ENS)
 * [git](https://github.com/git/git) (for versioning, de-duplicing and patching update data)
