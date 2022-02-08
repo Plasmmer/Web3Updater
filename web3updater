@@ -86,7 +86,7 @@ if [ "$1" = "init" ]; then
    echo "Initializing Web3Updater in this project..."
    cat > update.json <<EOF
 {
-  "patch_at": 0
+  "patch_at": 0,
   "cid_at": "",
   "recently_checked_at": "",
   "recently_updated_at": "",
