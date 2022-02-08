@@ -58,7 +58,7 @@ echo "Version: $vs / Patch: $(jq -r '.patch_at' /usr/lib/web3updater/update.json
 echo ""
 echo "Checking for new updates..."
 sh /usr/lib/web3updater/./sample_updates_3-5.sh apply4
-sh /usr/lib/web3updater/./sample_updates_3-5.sh apply3 checkifupdate
+sh /usr/lib/web3updater/./sample_updates_3-5.sh apply3
 
 # work at eventlr
 # take inspiration of Desktop/jq-sync.sh or Desktop/update.sh for reliable jq sync
