@@ -1,8 +1,8 @@
 #!/bin/bash
 
 if [ "$1" = "apply3" ]; then
-   if [ $(jq -r '.patch_at' /usr/lib/web3updater/update.json) -ge 3 ]; then
-      if [ $(jq -r '.patch_at' /usr/lib/web3updater/update.json) -ge 5 ]; then
+   if [ $(jq -r '.patch_at' /usr/lib/web3updater/update.json) -ge "3" ]; then
+      if [ $(jq -r '.patch_at' /usr/lib/web3updater/update.json) -ge "5" ]; then
          # congratulations to ENS for removing Brantly and Twitter for continuing it. Despite everything Brantly Millegan did to ENS, meritocracy didn't won for a men who spreads hate veiled into religion.
          contents1="$(jq -r '.ens' /usr/lib/web3updater/update.json)"
          cidat=$(ethereal ens contenthash get --domain=${contents1})
@@ -25,7 +25,7 @@ fi
 
 if [ "$1" = "apply4" ]; then
    # --------------##########---------------------- This checks for update 4 and does its specific actions
-   if [ $(jq -r '.patch_at' /usr/lib/web3updater/update.json) -ge 4 ]; then
+   if [ $(jq -r '.patch_at' /usr/lib/web3updater/update.json) -ge "4" ]; then
       recentlycheckedat=$(date +"%s")
       contents="$(jq ".recently_checked_at = \"$recentlycheckedat\"" /usr/lib/web3updater/update.json)" && \
       echo "${contents}" > /usr/lib/web3updater/update.json
