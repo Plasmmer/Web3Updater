@@ -19,6 +19,7 @@ if [ "$1" = "" ]; then
             echo "Information:"
             echo "   --help, -h                  Shows all available commands"
             echo "   --version, -v               Shows the version of $nm"
+            echo "   init                        Initiates $nm into a project"
 fi
 
       if [ "$1" = "--version" ] || [ "$1" = "-v" ]; then
@@ -79,6 +80,46 @@ if [ "$(jq -r '.new_patch_at' /usr/lib/web3updater/new_patch_at.json)" -gt "$(jq
 else
     echo "UP-TO-DATE like a breeze! No new updates to install, yet."
     sh /usr/lib/web3updater/./sample_updates_3-5.sh apply4 displayrecently
+fi
+
+if [ "$1" = "init" ]; then
+   echo "Initializing Web3Updater in this project..."
+   cat > update.json <<EOF
+{
+  "patch_at": 0
+  "cid_at": "",
+  "recently_checked_at": "",
+  "recently_updated_at": "",
+  "ens": ""
+}
+EOF
+   echo "Created update.json. Please don't forget to fill its ENS domain in that file."
+   
+   cat > new_patch_at.json <<EOF
+{
+  "new_patch_at": 0
+}
+EOF
+   echo "Created new_patch_at.json. Please don't forget to increase its number when adding an new update."
+   
+   cat > updates.sh <<EOF
+#!/bin/bash
+
+#if [ $(jq -r '.patch_at' /usr/lib/web3updater/update.json) = "0" ]; then
+#   echo "Installing update 1..."
+   # place here the updates/commands of this first patch. always remember to increase numbers on new updates
+#   contents="$(jq '.patch_at = "1"' /usr/lib/web3updater/update.json)" && \
+#   echo "${contents}" > /usr/lib/web3updater/update.json
+#fi
+
+#if [ $(jq -r '.patch_at' /usr/lib/web3updater/update.json) = "1" ]; then
+#   echo "Installing update 2..."
+   # place here the updates/commands of this first patch. always remember to increase numbers on new updates
+#   contents="$(jq '.patch_at = "2"' /usr/lib/web3updater/update.json)" && \
+#   echo "${contents}" > /usr/lib/web3updater/update.json
+#fi
+EOF
+   echo "Created updates.sh. Here is where you place the updates!"
 fi
 
 #- install Plugz (includes IPFS, jq) and ethereal using Plugz, that depends on UniStore, that depends on Web3Updater
