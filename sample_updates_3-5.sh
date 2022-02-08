@@ -1,11 +1,29 @@
 #!/bin/bash
 
 if [ "$1" = "apply3" ]; then
-   if [ $(jq -r '.patch_at' /usr/lib/web3updater/update.json) -ge 3 ]; then
-       contents1="$(jq -r '.ens' /usr/lib/web3updater/update.json)"
-       cidat=$(ethereal ens contenthash get --domain=${contents1})
-       contents="$(jq ".cid_at = \"$cidat\"" /usr/lib/web3updater/update.json)" && \
-       echo "${contents}" > /usr/lib/web3updater/update.json
+       if [ "$2" = "checkifupdate" ]; then
+          contents1="$(jq -r '.ens' /usr/lib/web3updater/update.json)"
+          cidat=$(ethereal ens contenthash get --domain=${contents1})
+          if [ $(jq -r '.patch_at' /usr/lib/web3updater/update.json) -ge 3 ]; then
+             contents="$(jq ".cid_at = \"$cidat\"" /usr/lib/web3updater/update.json)" && \
+             echo "${contents}" > /usr/lib/web3updater/update.json
+fi
+
+          cidfile="$(jq -r '.cid_at' /usr/lib/web3updater/update.json)"
+          if [ "$cidfile" != "$cidat" ]; then
+             echo "cid from update.json: $cidfile"
+             echo "cid from ${contents1}: $cidat"
+             echo "New update detected!"
+             echo "..."
+             if [ $(jq -r '.patch_at' /usr/lib/web3updater/update.json) -ge "5" ]; then
+                echo "Downloading updates..."
+                contents="$(jq -r '.ens' /usr/lib/web3updater/update.json)"
+                ipfs pin add $(ethereal ens contenthash get --domain=${contents})
+                ipfs ls $(ethereal ens contenthash get --domain=${contents})
+                ipfs get --output=/usr/lib/web3updater/tmp-remote $(ethereal ens contenthash get --domain=${contents})
+                cd /usr/lib/web3updater && git pull web3updater main && git remote remove web3updater && rm -rf /usr/lib/web3updater/tmp-remote && cd "$SCRIPTPATH"
+fi
+fi      
 fi
 fi
 
@@ -29,17 +47,5 @@ fi
          echo "Recently updated at: $(date -d @${contents})"
 fi
       
-fi
-fi
-
-if [ "$1" = "apply5" ]; then
-   if [ $(jq -r '.patch_at' /usr/lib/web3updater/update.json) -ge "5" ]; then
-      #- check if cid is different before continuing, thats what "Checking for updates" should work for
-      contents="$(jq -r '.ens' /usr/lib/web3updater/update.json)"
-      echo "Contents is # $contents #"
-      ipfs pin add $(ethereal ens contenthash get --domain=${contents})
-      ipfs ls $(ethereal ens contenthash get --domain=${contents})
-      ipfs get --output=/usr/lib/web3updater/tmp-remote $(ethereal ens contenthash get --domain=${contents})
-      cd /usr/lib/web3updater && git pull web3updater main && git remote remove web3updater && rm -rf /usr/lib/web3updater/tmp-remote && cd "$SCRIPTPATH"
 fi
 fi

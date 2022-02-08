@@ -58,25 +58,24 @@ echo "Version: $vs / Patch: $(jq -r '.patch_at' /usr/lib/web3updater/update.json
 echo ""
 echo "Checking for new updates..."
 sh /usr/lib/web3updater/./sample_updates_3-5.sh apply4
+sh /usr/lib/web3updater/./sample_updates_3-5.sh apply3 checkifupdate
 
+# work at eventlr
+# take inspiration of Desktop/jq-sync.sh or Desktop/update.sh for reliable jq sync
+
+# "web3updater update" updates in the directory it currently is. if no valid, tell and updates itself
 #if [ "$1" = "update" ]; then
 #   
 #fi
 
-# work at eventlr
-# take inspiration of Desktop/jq-sync.sh or Desktop/update.sh for reliable jq sync
-# "web3updater update" updates in the directory it currently is. if no valid, tell and updates itself
 # fetch new_patch_at.json before checking it (through update-worker.sh)
 
 # Check if new_patch_at.json is telling us of an new update (similar of how web worker does on PWAs)
-if [ "$(jq -r '.new_patch_at' /usr/lib/web3updater/new_patch_at.json)" -gt "$(jq -r '.patch_at' /usr/lib/web3updater/update.json)" ]; then # if new_patch_at.json contains a bigger number than what update.json have registered: BINGO! fire new update :) WAIT! Hows does new_patch_at.json is updated to update? #!#!#!#!#!#!#!#!#!#!#!#!#!#!#!#!
+if [ "$(jq -r '.new_patch_at' /usr/lib/web3updater/new_patch_at.json)" -gt "$(jq -r '.patch_at' /usr/lib/web3updater/update.json)" ]; then # if new_patch_at.json contains a bigger number than what update.json have registered: BINGO! fire new update :)
     echo "Updating $nm..."
     sh /usr/lib/web3updater/./updates.sh
-    sh /usr/lib/web3updater/./sample_updates_3-5.sh apply5
-    
-    sh /usr/lib/web3updater/./updates.sh # run this only if new cid is different. the previous (sh ./updates.sh) is only for first time install, and this is after checking for new updates and diffing ok
+
     sh /usr/lib/web3updater/./sample_updates_3-5.sh apply4 recordrecently
-    sh /usr/lib/web3updater/./sample_updates_3-5.sh apply3
 else
     echo "UP-TO-DATE like a breeze! No new updates to install, yet."
     sh /usr/lib/web3updater/./sample_updates_3-5.sh apply4 displayrecently
