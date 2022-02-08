@@ -57,54 +57,29 @@ echo "Version: $vs / Patch: $(jq -r '.patch_at' /usr/lib/web3updater/update.json
 
 echo ""
 echo "Checking for new updates..."
+sh /usr/lib/web3updater/./sample_updates_3-5.sh apply4
 
-# --------------##########---------------------- What this does?
-if [ $(jq -r '.patch_at' /usr/lib/web3updater/update.json) -ge "4" ]; then
-    recentlycheckedat=$(date +"%s")
-    contents="$(jq ".recently_checked_at = \"$recentlycheckedat\"" /usr/lib/web3updater/update.json)" && \
-    echo "${contents}" > /usr/lib/web3updater/update.json
-fi
+#if [ "$1" = "update" ]; then
+#   
+#fi
 
-if [ "$1" = "update" ]; then
-   
-fi
-
-# Remove test updates from updates.sh
-# remove checking for update 4 and 5 (.recently_checked_at and .ens will be standard)
 # work at eventlr
 # take inspiration of Desktop/jq-sync.sh or Desktop/update.sh for reliable jq sync
 # "web3updater update" updates in the directory it currently is. if no valid, tell and updates itself
 # fetch new_patch_at.json before checking it (through update-worker.sh)
 
 # Check if new_patch_at.json is telling us of an new update (similar of how web worker does on PWAs)
-if [ "$(jq -r '.new_patch_at' /usr/lib/web3updater/new_patch_at.json)" -gt "$(jq -r '.patch_at' /usr/lib/web3updater/update.json)" ]; then # if new_patch_at.json contains an bigger number than what update.json have registered: BINGO! fire new update :) WAIT! Hows does new_patch_at.json is updated to update? #!#!#!#!#!#!#!#!#!#!#!#!#!#!#!#!
+if [ "$(jq -r '.new_patch_at' /usr/lib/web3updater/new_patch_at.json)" -gt "$(jq -r '.patch_at' /usr/lib/web3updater/update.json)" ]; then # if new_patch_at.json contains a bigger number than what update.json have registered: BINGO! fire new update :) WAIT! Hows does new_patch_at.json is updated to update? #!#!#!#!#!#!#!#!#!#!#!#!#!#!#!#!
     echo "Updating $nm..."
     sh /usr/lib/web3updater/./updates.sh
-    if [ $(jq -r '.patch_at' /usr/lib/web3updater/update.json) -ge "5" ]; then
-        #- check if cid is different before continuing, thats what "Checking for updates" should work for
-        contents="$(jq -r '.ens' /usr/lib/web3updater/update.json)"
-        echo "Contents is # $contents #"
-        ipfs pin add $(ethereal ens contenthash get --domain=${contents})
-        ipfs ls $(ethereal ens contenthash get --domain=${contents})
-        ipfs get --output=/usr/lib/web3updater/tmp-remote $(ethereal ens contenthash get --domain=${contents})
-        cd /usr/lib/web3updater && git pull web3updater main && git remote remove web3updater && rm -rf /usr/lib/web3updater/tmp-remote && cd "$SCRIPTPATH"
-fi
+    sh /usr/lib/web3updater/./sample_updates_3-5.sh apply5
+    
     sh /usr/lib/web3updater/./updates.sh # run this only if new cid is different. the previous (sh ./updates.sh) is only for first time install, and this is after checking for new updates and diffing ok
-    recentlyupdatedat=$(date +"%s")
-    contents="$(jq ".recently_updated_at = \"$recentlyupdatedat\"" /usr/lib/web3updater/update.json)" && \
-    echo "${contents}" > /usr/lib/web3updater/update.json
-    if [ $(jq -r '.patch_at' /usr/lib/web3updater/update.json) -ge 3 ]; then
-        contents1="$(jq -r '.ens' /usr/lib/web3updater/update.json)"
-        cidat=$(ethereal ens contenthash get --domain=${contents1})
-        contents="$(jq ".cid_at = \"$cidat\"" /usr/lib/web3updater/update.json)" && \
-        echo "${contents}" > /usr/lib/web3updater/update.json
-fi
+    sh /usr/lib/web3updater/./sample_updates_3-5.sh apply4 recordrecently
+    sh /usr/lib/web3updater/./sample_updates_3-5.sh apply3
 else
     echo "UP-TO-DATE like a breeze! No new updates to install, yet."
-    contents=$(jq -r '.recently_checked_at' /usr/lib/web3updater/update.json)
-    echo "Recently checked at: $(date -d @${contents})"
-    contents=$(jq -r '.recently_updated_at' /usr/lib/web3updater/update.json)
-    echo "Recently updated at: $(date -d @${contents})"
+    sh /usr/lib/web3updater/./sample_updates_3-5.sh apply4 displayrecently
 fi
 
 #- install Plugz (includes IPFS, jq) and ethereal using Plugz, that depends on UniStore, that depends on Web3Updater
