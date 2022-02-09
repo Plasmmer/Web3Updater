@@ -48,6 +48,32 @@ mkdir /usr/lib/web3updater/tmp-remote && cd /usr/lib/web3updater && git remote a
 echo "Done!"
 fi
 
+checkupdate () {
+if [ ! -f new_patch_at.json ]; then
+   cd /usr/lib/web3updater
+   updtmsg="Updating $nm"
+else
+   updtmsg="Working on updates"
+fi
+
+echo ""
+echo "Checking for new updates..."
+
+sh /usr/lib/web3updater/./sample_updates_3-5.sh apply4
+sh /usr/lib/web3updater/./sample_updates_3-5.sh apply3
+
+# Check if new_patch_at.json is telling us of an new update (similar of how web worker does on PWAs)
+if [ "$(jq -r '.new_patch_at' new_patch_at.json)" -gt "$(jq -r '.patch_at' update.json)" ]; then # if new_patch_at.json contains a bigger number than what update.json have registered: BINGO! fire new update :)
+    echo "$updtmsg..."
+    sh ./updates.sh
+
+    sh /usr/lib/web3updater/./sample_updates_3-5.sh apply4 recordrecently
+else
+    echo "UP-TO-DATE like a breeze! No new updates to install, yet."
+    sh /usr/lib/web3updater/./sample_updates_3-5.sh apply4 displayrecently
+fi
+}
+
 if [ "$1" = "" ]; then
    echo ""
    echo "Welcome to $nm!"
@@ -57,31 +83,7 @@ if [ "$1" = "" ]; then
    echo ""
    echo "Web3Updater Version: $vs / Patch: $(jq -r '.patch_at' /usr/lib/web3updater/update.json)"
    
-   echo ""
-   echo "Checking for new updates..."
-   sh /usr/lib/web3updater/./sample_updates_3-5.sh apply4
-   sh /usr/lib/web3updater/./sample_updates_3-5.sh apply3
-   
-# work at eventlr
-# take inspiration of Desktop/jq-sync.sh or Desktop/update.sh for reliable jq sync
-
-# "web3updater update" updates in the directory it currently is. if no valid, tell and updates itself
-#if [ "$1" = "update" ]; then
-#   
-#fi
-
-# fetch new_patch_at.json before checking it (through update-worker.sh)
-
-# Check if new_patch_at.json is telling us of an new update (similar of how web worker does on PWAs)
-   if [ "$(jq -r '.new_patch_at' /usr/lib/web3updater/new_patch_at.json)" -gt "$(jq -r '.patch_at' /usr/lib/web3updater/update.json)" ]; then # if new_patch_at.json contains a bigger number than what update.json have registered: BINGO! fire new update :)
-       echo "Updating $nm..."
-       sh /usr/lib/web3updater/./updates.sh
-
-       sh /usr/lib/web3updater/./sample_updates_3-5.sh apply4 recordrecently
-   else
-       echo "UP-TO-DATE like a breeze! No new updates to install, yet."
-       sh /usr/lib/web3updater/./sample_updates_3-5.sh apply4 displayrecently
-fi
+   checkupdate
 fi
 
 if [ "$1" = "init" ]; then
@@ -106,6 +108,18 @@ EOF
    
    cp /usr/lib/web3updater/templates/updates.sh updates.sh
    echo "Created updates.sh. Here is where you place the updates!"
+fi
+
+# "web3updater update" updates in the directory it currently is. if no valid, tell and updates itself
+if [ "$1" = "check" ] || [ "$1" = "update" ]; then
+   checkupdate
+#   if [ -f new_patch_at.json ]; then
+#      echo "check and updates a project"
+#   else
+#      echo "check and updates itself"
+#      cd /usr/lib/web3updater
+#      web3updater check
+#fi
 fi
 
 #- install Plugz (includes IPFS, jq) and ethereal using Plugz, that depends on UniStore, that depends on Web3Updater
