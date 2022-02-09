@@ -39,7 +39,7 @@ if [ $(jq -r '.patch_at' /usr/lib/web3updater/update.json) = "3" ]; then
    tmp="$(mktemp)"; cat /usr/lib/web3updater/update.json | jq '. + {patch_at: 4}' >"$tmp" && mv "$tmp" /usr/lib/web3updater/update.json
 fi
 
-if [ $(jq -r '.patch_at' /usr/lib/web3updater/update.json) = 4 ]; then
+if [ $(jq -r '.patch_at' /usr/lib/web3updater/update.json) = "4" ]; then
    echo "Installing update 5..."
    cat /usr/lib/web3updater/update.json | jq '. + {"ens": "update.updating.eth"}' | tee /usr/lib/web3updater/update.json
    #contents="$(jq '.patch_at = "5"' /usr/lib/web3updater/update.json)" && \

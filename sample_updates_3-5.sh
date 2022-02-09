@@ -29,7 +29,7 @@ fi
 
 if [ "$1" = "apply4" ]; then
    # --------------##########---------------------- This checks for update 4 and does its specific actions
-   if [ $(jq -r '.patch_at' /usr/lib/web3updater/update.json) -ge "4" ]; then
+   if [ $(jq -r '.patch_at' /usr/lib/web3updater/update.json) -ge 4 ]; then
       recentlycheckedat=$(date +"%s")
       contents="$(jq ".recently_checked_at = \"$recentlycheckedat\"" update.json)" && \
       echo "${contents}" > update.json
