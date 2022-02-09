@@ -43,8 +43,10 @@ fi
       if [ "$2" = "displayrecently" ]; then
          contents=$(jq -r '.recently_checked_at' update.json)
          echo "Recently checked at: $(date -d @${contents})"
-         contents=$(jq -r '.recently_updated_at' update.json)
-         echo "Recently updated at: $(date -d @${contents})"
+         if [ "$(jq -r '.new_patch_at' new_patch_at.json)" -gt "0" ]; then
+            contents=$(jq -r '.recently_updated_at' update.json)
+            echo "Recently updated at: $(date -d @${contents})"
+fi
 fi
 
 fi
