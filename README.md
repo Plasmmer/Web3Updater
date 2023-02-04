@@ -3,11 +3,11 @@
 Imagine Windows Update, but for the Web 3.0 and for any app/CLI program/OS.
 
 #### Why IPFS?
-To not depend on a centralized server.
+To not depend on a failure-prone centralized server. The true focus isn't about censorship concerns, but mainly because an OS or app that handles user's digital money shouldn't be vulnerable to individuals.
 #### Why blockchain?
-To validate decentralized DNS/domains.
+To use a public ledger to validate decentralized DNS/domains.
 #### Why Ethereum?
-Because it is the pioneer on smart-contracts and fostering innovation (such as the eco-friendly PoS, token-burning and sharding) while preferring decentralization/security over speed.
+Because it is the pioneer on smart-contracts and fostering innovation (such as the eco-friendly PoS, token-burning and sharding) while choosing decentralization/security over speed.
 
 ## How it works
 
