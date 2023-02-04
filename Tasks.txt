@@ -1,3 +1,5 @@
+- look at GH issues
+
 - Prepare to reset the project's updates.sh/sample_updates_3-5.sh. restart from pelanz... ...from scratch in an new folder 
 - By using variables+calcs, enable the dev to use update number only once (or W3U itself identifying the update number!). Use a folder for updates and use them as individual files inspired by ShrdChn? so the dev snds "web3updater/w3u new update" and an new file is created with an increased number
 -? Fix sync bug (or already fixed by the previous item?)
