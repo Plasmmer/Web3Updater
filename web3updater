@@ -121,12 +121,3 @@ if [ "$1" = "check" ] || [ "$1" = "update" ]; then
 #      web3updater check
 #fi
 fi
-
-#- install Plugz (includes IPFS, jq) and ethereal using Plugz, that depends on UniStore, that depends on Web3Updater
-
-#- factory reset
-#- issue: "ge"/"gt" https://www.google.com/search?q=bash+jq+-ge%3A+unexpected+operator&client=firefox-b-d&sxsrf=ALeKk02M1HdgqOD_uVa8r1cbaFzibUu1qA%3A1620507855770&ei=z_yWYMOhLo_e1sQPnZ6L6Ac&oq=bash+jq+-ge%3A+unexpected+operator&gs_lcp=Cgdnd3Mtd2l6EAM6BwgAEEcQsANQ9_EJWJOICmDoiwpoAXACeACAAbkBiAHsCpIBAzAuOZgBAKABAaoBB2d3cy13aXrIAQjAAQE&sclient=gws-wiz&ved=0ahUKEwiDxeSY_rrwAhUPr5UCHR3PAn0Q4dUDCAw&uact=5 because of using jq to write and at same time to read (collision)
-#- EPNS notifications
-#- if IPFS is not running, run it
-
-#- incentive to use an local ethereum node (also from .ppl), instead of infura
