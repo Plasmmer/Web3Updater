@@ -8,10 +8,11 @@ if [ "$1" = "" ]; then
    if [ -f /usr/lib/web3updater/update.json ]; then
       web3updaterversion="""
         \e[1;42m $nm \e[0m\e[100m version $vs - Patch: $(jq -r '.patch_at' /usr/lib/web3updater/update.json) \e[0m
-        \e[100m Created in 02-05-2021 by Daniell Mesquita \e[0m
+        \e[100m Created in 02-05-2021 by Daniella Mesquita \e[0m
 """
       echo "$web3updaterversion"
       echo "Type 'web3updater --help' (without quotes) to see a list of available commands."
+      echo "NOTE: this program isn't fully ready, yet."
       if [ "$1" = "--help" ] || [ "$1" = "-h" ]; then
             echo "        \e[1;42m $nm $vs \e[0m"
             echo "Use these commands after/together with 'web3updater' command."
